@@ -196,7 +196,30 @@ def calculate_avg_order_value_by_segment_shipmode(data):
 
     return avg_order_value
  
- 
+def get_top3_cities_by_profit_in_category(data):
+  
+    category_city_profit = {}
+
+    for row in data:
+        category = row['Category']
+        city = row['City']
+        profit = float(row['Profit'])
+
+        if category not in category_city_profit:
+            category_city_profit[category] = {}
+
+        if city not in category_city_profit[category]:
+            category_city_profit[category][city] = 0
+
+        category_city_profit[category][city] += profit
+
+    result = {}
+    for category, city_dict in category_city_profit.items():
+        sorted_cities = sorted(city_dict.items(), key=lambda x: x[1], reverse=True)
+        top3 = sorted_cities[:3]
+        result[category] = top3
+
+    return result
 
   
 
