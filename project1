@@ -335,7 +335,34 @@ def test_avg_order_value_by_segment_shipmode():
     assert result == {}
 
 #----------------------------------------------------------------------
+def test_get_top3_cities_by_profit_in_category():
+    print("\nRunning test_get_top3_cities_by_profit_in_category...")
+    # General Case 1
+    data = [
+        {'City': 'New York', 'Profit': '500', 'Category': 'Furniture'},
+        {'City': 'Los Angeles', 'Profit': '400', 'Category': 'Furniture'},
+        {'City': 'Seattle', 'Profit': '300', 'Category': 'Furniture'}
+    ]
+    result = get_top3_cities_by_profit_in_category(data)
+    assert 'Furniture' in result
+    assert len(result['Furniture']) == 3
 
+    # General Case 2
+    top_city = result['Furniture'][0][0]
+    assert top_city == 'New York'
+
+    # Edge Case 1: Fewer than 3 cities
+    data = [
+        {'City': 'Detroit', 'Profit': '200', 'Category': 'Office Supplies'},
+        {'City': 'Chicago', 'Profit': '100', 'Category': 'Office Supplies'}
+    ]
+    result = get_top3_cities_by_profit_in_category(data)
+    assert len(result['Office Supplies']) <= 3
+
+    # Edge Case 2: Empty list
+    data = []
+    result = get_top3_cities_by_profit_in_category(data)
+    assert result == {}
 
 # =========================================================
 # Run program
