@@ -363,6 +363,7 @@ def test_get_top3_cities_by_profit_in_category():
     data = []
     result = get_top3_cities_by_profit_in_category(data)
     assert result == {}
+    
 
 # =========================================================
 # Run program
